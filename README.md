@@ -49,3 +49,9 @@ Para la creación del agente decidí optar por un **agente basado en modelos**, 
 
 <img src="./images/image1.png"></img>
 
+#### Componetes del Agente
+
+1. **Como es el mundo ahora**: Esta parte se encarga de crear una representacion del mundo gracias a las **percepciones**,**estado interno** y el **conocimiento de las reglas**.
+2. **Estado**: Esta es la parte crucial del agente, es la encargada en almacenar un historico de todas las partidas o **percepciones** del entorno, es como si fuese la **memoria** del agente, esto es lo que le permitira aprender del mundo.
+3. **Como evoluciona el mundo**: Se encarga de describir como cambian las condiciones del entorno con el tiempo, basandose en el **estado**.
+4. **Como afectan mis acciones**: Segun las acciones del agente (como juega al RPS) se traduce como un resultado, que afectara a la estratia a futuro, ya que se alamacenara en el **estado**
