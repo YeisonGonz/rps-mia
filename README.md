@@ -9,7 +9,7 @@ Este projecto esta hecho por el alumno, **Yeison Gonzalez Rascado**.
 En este projecto se propone la creación de agente inteligente para solucionar tareas en un entorno del juego
 de **piedra, papel o tijera**.
 
-### Propiedades del entorno de tareas del RPS
+### Especificación del entorno de tareas
 
 #### Observable
 
@@ -43,7 +43,7 @@ Es un juego **Conocido**, ya que los agentes que juegan conocen y entienden las 
 |---|---|---|---|---|---|---|---|
 |  RPS | Parcialmente Observable  | 2  | No Determinista  |  Secuencial | Estático  | Discreto  | Conocido  |
 
-### Estructura del agente
+### Identificación del tipo de agente y su estructura
 
 Para la creación del agente decidí optar por un **agente basado en modelos**, ya que permite que el agente pueda aprender mediante el *Estado*, la capacidad de poder almacenar las partidas anteriores, y así poder desarrollar un algoritmo para que el agente juegue mejor al RPS y sea capaz de ganar el mayor número posible de partidas.
 
