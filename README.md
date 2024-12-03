@@ -17,7 +17,7 @@ El RPS es **Parcialmente Observable** , ya que en el momento de jugar ninguno de
 
 #### Agentes
 
-En este entorno se usan **2 agentes**, ya que esta hecho para que dos agentes jueguen entre si al piedra papel o tijero. 
+En este entorno se usan 2 agentes por lo cual se clasifica como **Multiagente** , ya que esta hecho para que dos agentes jueguen entre si al piedra papel o tijera. 
 
 #### Determinista
 
@@ -39,9 +39,9 @@ Ya que las opciones del piedra, papel o tijera son finitas y se conocen todos el
 
 Es un juego **Conocido**, ya que los agentes que juegan conocen y entienden las reglas.
 
-| Entorno de tareas  | Observable  | Axentes  | Determinista  | Episódico  | Estático  | Discreto  | Coñecido  |
-|---|---|---|---|---|---|---|---|
-|  RPS | Parcialmente Observable  | 2  | No Determinista  |  Secuencial | Estático  | Discreto  | Conocido  |
+| Entorno de tareas  | Observable  | Axentes     | Determinista  | Episódico  | Estático  | Discreto  | Coñecido  |
+|---|---|-------------|---|---|---|---|---|
+|  RPS | Parcialmente Observable  | Multiagente | No Determinista  |  Secuencial | Estático  | Discreto  | Conocido  |
 
 ### Identificación del tipo de agente y su estructura
 
