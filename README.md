@@ -47,7 +47,7 @@ Es un juego **Conocido**, ya que los agentes que juegan conocen y entienden las 
 
 Para la creación del agente decidí optar por un **agente basado en modelos**, ya que permite que el agente pueda aprender mediante el *Estado*, la capacidad de poder almacenar las partidas anteriores, y así poder desarrollar un algoritmo para que el agente juegue mejor al RPS y sea capaz de ganar el mayor número posible de partidas.
 
-<img src="./images/image1.png"></img>
+<img src="./images/image2.png"></img>
 
 #### Componetes del Agente
 
