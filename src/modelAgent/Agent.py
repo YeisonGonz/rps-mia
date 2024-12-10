@@ -26,3 +26,14 @@ class Agent:
                 state.append(row)
 
         return state
+
+    def save_game_state(self, computer_action, user_action, computer_status):
+        if not os.path.exists(self.DEFAULT_STATE_PATH):
+            os.makedirs(os.path.dirname(self.DEFAULT_STATE_PATH), exist_ok=True)
+
+        new_game_state = [computer_action, user_action, computer_status]
+        with open(self.DEFAULT_STATE_PATH, 'a', newline='') as file:
+            csv_writer = csv.writer(file)
+            csv_writer.writerow(new_game_state)
+
+        return new_game_state

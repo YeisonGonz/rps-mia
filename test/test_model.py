@@ -16,3 +16,7 @@ def test_load_state():
     """
     testing_agent.DEFAULT_STATE_PATH = '../src/data/default_state.csv' # Pequeno csv para hacer pruebas
     assert testing_agent.load_state_by_csv() == [['ROCK','PAPER','WIN']]
+
+def test_save_state():
+    testing_agent.DEFAULT_STATE_PATH = '../src/data/default_state_test.csv'
+    assert testing_agent.save_game_state('PAPER','SCISSORS','LOSE') == ['PAPER','SCISSORS','LOSE']
