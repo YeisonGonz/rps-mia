@@ -45,11 +45,31 @@ Es un juego **Conocido**, ya que los agentes que juegan conocen y entienden las 
 
 ### Identificación del tipo de agente y su estructura
 
-Para la creación del agente decidí optar por un **agente basado en modelos**, ya que permite que el agente pueda aprender mediante el *Estado*, la capacidad de poder almacenar las partidas anteriores, y así poder desarrollar un algoritmo para que el agente juegue mejor al RPS y sea capaz de ganar el mayor número posible de partidas.
+Para la creación del agente decidí optar por un **agente basado en modelos**, ya que permite que el agente pueda aprender 
+mediante el *Estado*, la capacidad de poder almacenar las partidas anteriores, y así poder desarrollar un algoritmo para 
+que el agente juegue mejor al RPS y sea capaz de ganar el mayor número posible de partidas.
+
+#### Estrategia
+
+Ya que el agente tiene la capacidad de guardar un **estado** interno con las anteriores partidas podemos aprovechar eso 
+para diseñar una estrategia basada en las anteriores partidas e información extra, la estrategia se basara en estos puntos:
+
+1. Aprovecharnos del componente probabilistico
+
+Ya que el agente tiene la capacidad de guardar un historico de las partidas podemos usar eso para generar un porcentaje 
+de cual sera la siguiente eleccion del openente.
+
+2. Orden basado en el nombre del juego
+
+Según nos comenta este artículo [Link](https://verne.elpais.com/verne/2016/06/17/articulo/1466179211_163922.html), tras
+un estudio a una selección de 360 estudiantes y 20000 rondas de juego se fijaron que había una tendencia a seguir el orden
+del título del juego: Piedra -> Papel -> Tijera, esta tendencia será incluida en el agente para que tenga en cuenta el propio
+orden del nombre.
+
+#### Componetes del Agente
 
 <img src="./images/image2.png"></img>
 
-#### Componetes del Agente
 
 1. **Como es el mundo ahora**: Esta parte se encarga de crear una representacion del mundo gracias a las **percepciones**,**estado interno** y el **conocimiento de las reglas**.
 2. **Estado**: Esta es la parte crucial del agente, es la encargada en almacenar un historico de todas las partidas o **percepciones** del entorno, es como si fuese la **memoria** del agente, esto es lo que le permitira aprender del mundo ya puede alamacenar partes del mundo que antes no podian ver.
