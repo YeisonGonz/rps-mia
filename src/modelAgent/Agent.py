@@ -13,6 +13,18 @@ class Agent:
         if not self.state:
             return GameAction.Rock
 
+        opponent_usage = self.calculate_opponent_usage()
+        posible_opponent_choice = max(opponent_usage, key=opponent_usage.get)
+
+        if posible_opponent_choice == 'PAPER':
+            posible_opponent_choice = GameAction.Paper
+        if posible_opponent_choice == 'ROCK':
+            posible_opponent_choice = GameAction.Rock
+        if posible_opponent_choice == 'SCISSORS':
+            posible_opponent_choice = GameAction.Scissors
+
+        return self.counter_action(posible_opponent_choice)
+
 
     def load_state_by_csv(self):
         if not os.path.exists(self.DEFAULT_STATE_PATH):

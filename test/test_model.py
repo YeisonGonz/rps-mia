@@ -43,3 +43,10 @@ def test_counter_action():
     assert testing_agent.counter_action(posible_opponent_choice=GameAction.Rock) == GameAction.Paper
     assert testing_agent.counter_action(posible_opponent_choice=GameAction.Paper) == GameAction.Scissors
     assert testing_agent.counter_action(posible_opponent_choice=GameAction.Scissors) == GameAction.Rock
+
+def test_play_with_state():
+    testing_agent.state = [['ROCK', 'PAPER', 'WIN']]
+    assert testing_agent.play() == GameAction.Scissors
+
+    testing_agent.state = [['ROCK', 'PAPER', 'WIN'], ['ROCK', 'ROCK', 'DRAW'],['ROCK', 'ROCK', 'DRAW']]
+    assert testing_agent.play() == GameAction.Paper
