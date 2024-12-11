@@ -33,3 +33,13 @@ def test_opponent_usage():
 
     testing_agent.state = [['ROCK', 'PAPER', 'WIN'], ['ROCK', 'ROCK', 'DRAW'], ['ROCK', 'SCISSORS', 'WIN']]
     assert testing_agent.calculate_opponent_usage() == { 'ROCK': 33.33, 'PAPER': 33.33,'SCISSORS': 33.33}
+
+def test_counter_action():
+    """
+    posible_opponent_choice es el resultado de mayor porcentace que devuelve la funcion calculate_opponent_usage(),
+    se basa en responder con la accion contraria a la accion mas probable del oponente.
+    """
+
+    assert testing_agent.counter_action(posible_opponent_choice=GameAction.Rock) == GameAction.Paper
+    assert testing_agent.counter_action(posible_opponent_choice=GameAction.Paper) == GameAction.Scissors
+    assert testing_agent.counter_action(posible_opponent_choice=GameAction.Scissors) == GameAction.Rock

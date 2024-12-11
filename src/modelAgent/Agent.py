@@ -51,3 +51,11 @@ class Agent:
         percentages = {choice: round((count / total_choices) * 100,2) for choice, count in choice_counts.items()}
 
         return percentages
+
+    def counter_action(self, posible_opponent_choice):
+        counters = {
+            GameAction.Rock.value: GameAction.Paper,
+            GameAction.Paper.value: GameAction.Scissors,
+            GameAction.Scissors.value: GameAction.Rock
+        }
+        return counters.get(posible_opponent_choice)
