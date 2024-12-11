@@ -20,3 +20,16 @@ def test_load_state():
 def test_save_state():
     testing_agent.DEFAULT_STATE_PATH = '../src/data/default_state_test.csv'
     assert testing_agent.save_game_state('PAPER','SCISSORS','LOSE') == ['PAPER','SCISSORS','LOSE']
+
+def test_opponent_usage():
+    testing_agent.state = [['ROCK', 'PAPER', 'WIN']]
+    assert testing_agent.calculate_opponent_usage() == {'PAPER':100.0}
+
+    testing_agent.state = [['ROCK', 'PAPER', 'WIN'],['ROCK', 'ROCK', 'DRAW']]
+    assert testing_agent.calculate_opponent_usage() == {'ROCK': 50.0, 'PAPER': 50.0}
+
+    testing_agent.state = [['ROCK', 'PAPER', 'WIN'], ['ROCK', 'ROCK', 'DRAW'],['ROCK', 'ROCK', 'DRAW']]
+    assert testing_agent.calculate_opponent_usage() == {'ROCK': 66.67, 'PAPER': 33.33}
+
+    testing_agent.state = [['ROCK', 'PAPER', 'WIN'], ['ROCK', 'ROCK', 'DRAW'], ['ROCK', 'SCISSORS', 'WIN']]
+    assert testing_agent.calculate_opponent_usage() == { 'ROCK': 33.33, 'PAPER': 33.33,'SCISSORS': 33.33}

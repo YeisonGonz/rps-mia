@@ -1,7 +1,7 @@
 import csv
 import os
 from src.base_rps import GameAction
-
+from collections import Counter
 
 class Agent:
 
@@ -25,6 +25,7 @@ class Agent:
             for row in my_reader:
                 state.append(row)
 
+        self.state = state
         return state
 
     def save_game_state(self, computer_action, user_action, computer_status):
@@ -37,3 +38,16 @@ class Agent:
             csv_writer.writerow(new_game_state)
 
         return new_game_state
+
+    def calculate_opponent_usage(self):
+        if not self.state:
+            return {}
+
+        opponent_choices = [row[1] for row in self.state]
+
+        choice_counts = Counter(opponent_choices)
+
+        total_choices = sum(choice_counts.values())
+        percentages = {choice: round((count / total_choices) * 100,2) for choice, count in choice_counts.items()}
+
+        return percentages
