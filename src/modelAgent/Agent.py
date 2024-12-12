@@ -65,6 +65,25 @@ class Agent:
 
         return percentages
 
+    def get_second_most_likely_action(self):
+        opponent_usage = self.calculate_opponent_usage()
+        sorted_usage = sorted(opponent_usage.items(), key=lambda x: x[1], reverse=True)
+
+        if len(sorted_usage) > 1 and not all(value == sorted_usage[0][1] for _, value in sorted_usage):
+            second_most_usage = sorted_usage[1][0]
+            return GameAction[second_most_usage.capitalize()]
+        return None
+
+    def get_most_likely_action(self):
+        opponent_usage = self.calculate_opponent_usage()
+        max_value = max(opponent_usage.values())
+
+        if all(value == max_value for value in opponent_usage.values()):
+            return None
+
+        most_likely_action = max(opponent_usage, key=opponent_usage.get)
+        return GameAction[most_likely_action.capitalize()]
+
     def calculate_opponent_action(self):
         pattern = [GameAction.Rock, GameAction.Paper, GameAction.Scissors]
 
@@ -81,6 +100,22 @@ class Agent:
             opponent_index = pattern.index(GameAction[opponent_last_action.capitalize()])
             next_action = pattern[(opponent_index + 1) % len(pattern)]
             return next_action
+
+    def sum_strategies(self):
+        opponent_action_1 = self.get_most_likely_action()
+        opponent_action_2 = self.calculate_opponent_action()
+
+        if opponent_action_1 is None:
+            return opponent_action_2
+        if opponent_action_1 == opponent_action_2:
+            return opponent_action_1
+        else:
+            second_most_usage = self.get_second_most_likely_action()
+
+            if second_most_usage == opponent_action_2:
+                return second_most_usage
+            else:
+                return opponent_action_1
 
     def counter_action(self, posible_opponent_choice):
         counters = {

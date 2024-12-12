@@ -66,3 +66,39 @@ def test_calculate_opponent_action_probabilities():
     testing_agent.last_opponent_action = GameAction.Paper
     testing_agent.state = [['ROCK', 'ROCK', 'DRAW'],['SCISSORS', 'PAPER', 'WIN']]  # El oponente pierde, cambiando de eleccion siguiendo la estrategia
     assert testing_agent.calculate_opponent_action() == GameAction.Scissors
+
+
+def test_sum_startegies():
+    testing_agent.last_opponent_action = GameAction.Paper
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'],['ROCK', 'SCISSORS', 'WIN'], ['SCISSORS', 'PAPER', 'WIN']]
+    assert testing_agent.sum_strategies() == GameAction.Scissors
+
+    testing_agent.last_opponent_action = GameAction.Paper
+    testing_agent.state = [['PAPER', 'ROCK', 'WIN'], ['SCISSORS', 'PAPER', 'WIN'], ['PAPER', 'SCISSORS', 'LOSE']]
+    assert testing_agent.sum_strategies() == GameAction.Scissors
+
+def test_most_likely_action():
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'], ['ROCK', 'SCISSORS', 'WIN'], ['SCISSORS', 'SCISSORS', 'DRAW']]
+    assert testing_agent.get_most_likely_action() == GameAction.Scissors
+
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'], ['ROCK', 'PAPER', 'LOSE'], ['SCISSORS', 'SCISSORS', 'DRAW']]
+    assert testing_agent.get_most_likely_action() == GameAction.Paper
+
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'], ['ROCK', 'ROCK', 'DRAW'], ['SCISSORS', 'ROCK', 'LOSE']]
+    assert testing_agent.get_most_likely_action() == GameAction.Rock
+
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'], ['ROCK', 'SCISSORS', 'WIN'], ['SCISSORS', 'ROCK', 'LOSE']]
+    assert testing_agent.get_most_likely_action() is None
+
+def test_second_most_likely_action():
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'], ['ROCK', 'SCISSORS', 'WIN'], ['SCISSORS', 'SCISSORS', 'DRAW']]
+    assert testing_agent.get_second_most_likely_action() == GameAction.Paper
+
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'], ['ROCK', 'PAPER', 'LOSE'], ['SCISSORS', 'SCISSORS', 'DRAW']]
+    assert testing_agent.get_second_most_likely_action() == GameAction.Scissors
+
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'], ['ROCK', 'PAPER', 'LOSE'], ['SCISSORS', 'ROCK', 'LOSE']]
+    assert testing_agent.get_second_most_likely_action() == GameAction.Rock
+
+    testing_agent.state = [['PAPER', 'PAPER', 'DRAW'], ['ROCK', 'SCISSORS', 'WIN'], ['SCISSORS', 'ROCK', 'LOSE']]
+    assert testing_agent.get_second_most_likely_action() is None
