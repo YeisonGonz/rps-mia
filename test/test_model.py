@@ -50,3 +50,19 @@ def test_play_with_state():
 
     testing_agent.state = [['ROCK', 'PAPER', 'WIN'], ['ROCK', 'ROCK', 'DRAW'],['ROCK', 'ROCK', 'DRAW']]
     assert testing_agent.play() == GameAction.Paper
+
+def test_calculate_opponent_action_probabilities():
+    """
+    Esta funcion opera basandose en la segunda estartegia basada en el orden, Piedra -> Papel -> Tijera.
+    """
+    testing_agent.last_opponent_action = GameAction.Rock
+    testing_agent.state = [['ROCK', 'ROCK', 'DRAW']]
+    assert testing_agent.calculate_opponent_action() == GameAction.Paper # Siguiendo la estrategia basada en el orden, Piedra -> Papel -> Tijera
+
+    testing_agent.last_opponent_action = GameAction.Paper
+    testing_agent.state = [['ROCK', 'ROCK', 'DRAW'],['ROCK', 'PAPER', 'LOSE']] # El oponente gana y tendera a repetir la jugada
+    assert testing_agent.calculate_opponent_action() == GameAction.Paper
+
+    testing_agent.last_opponent_action = GameAction.Paper
+    testing_agent.state = [['ROCK', 'ROCK', 'DRAW'],['SCISSORS', 'PAPER', 'WIN']]  # El oponente pierde, cambiando de eleccion siguiendo la estrategia
+    assert testing_agent.calculate_opponent_action() == GameAction.Scissors

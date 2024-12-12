@@ -8,6 +8,7 @@ class Agent:
     def __init__(self):
         self.DEFAULT_STATE_PATH = '../data/state.csv'
         self.state = self.load_state_by_csv()
+        self.last_opponent_action = None
 
     def play(self):
         if not self.state:
@@ -63,6 +64,23 @@ class Agent:
         percentages = {choice: round((count / total_choices) * 100,2) for choice, count in choice_counts.items()}
 
         return percentages
+
+    def calculate_opponent_action(self):
+        pattern = [GameAction.Rock, GameAction.Paper, GameAction.Scissors]
+
+        if not self.state:
+            return None
+
+        last_game = self.state[-1]
+        agent_last_action, opponent_last_action, result = last_game
+        self.last_opponent_action = opponent_last_action
+
+        if result == 'LOSE':
+            return GameAction[opponent_last_action.capitalize()]
+        else:
+            opponent_index = pattern.index(GameAction[opponent_last_action.capitalize()])
+            next_action = pattern[(opponent_index + 1) % len(pattern)]
+            return next_action
 
     def counter_action(self, posible_opponent_choice):
         counters = {
