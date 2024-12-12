@@ -66,6 +66,12 @@ un estudio a una selección de 360 estudiantes y 20000 rondas de juego se fijaro
 del título del juego: Piedra -> Papel -> Tijera, esta tendencia será incluida en el agente para que tenga en cuenta el propio
 orden del nombre.
 
+Lo tengo planteado para que cada una de las estrategias sea capaz de devolverme un posbile resultado a la proxima accion
+del oponente, de modo que tengo que encontrar una manera de compararlas si se diera el caso de que son distintas. Lo explico
+en esta figura.
+
+<img src="./images/image3.png"></img>
+
 #### Componetes del Agente
 
 <img src="./images/image2.png"></img>
