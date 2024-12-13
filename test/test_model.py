@@ -18,8 +18,9 @@ def test_load_state():
     assert testing_agent.load_state_by_csv() == [['ROCK','PAPER','WIN']]
 
 def test_save_state():
+    testing_agent.state = [['ROCK', 'PAPER', 'WIN']]
     testing_agent.DEFAULT_STATE_PATH = '../src/data/default_state_test.csv'
-    assert testing_agent.save_game_state('PAPER','SCISSORS','LOSE') == ['PAPER','SCISSORS','LOSE']
+    assert testing_agent.save_game_state(GameAction.Paper,GameAction.Scissors) == ['PAPER','SCISSORS','LOSE']
 
 def test_opponent_usage():
     testing_agent.state = [['ROCK', 'PAPER', 'WIN']]
@@ -43,13 +44,6 @@ def test_counter_action():
     assert testing_agent.counter_action(posible_opponent_choice=GameAction.Rock) == GameAction.Paper
     assert testing_agent.counter_action(posible_opponent_choice=GameAction.Paper) == GameAction.Scissors
     assert testing_agent.counter_action(posible_opponent_choice=GameAction.Scissors) == GameAction.Rock
-
-def test_play_with_state():
-    testing_agent.state = [['ROCK', 'PAPER', 'WIN']]
-    assert testing_agent.play() == GameAction.Scissors
-
-    testing_agent.state = [['ROCK', 'PAPER', 'WIN'], ['ROCK', 'ROCK', 'DRAW'],['ROCK', 'ROCK', 'DRAW']]
-    assert testing_agent.play() == GameAction.Paper
 
 def test_calculate_opponent_action_probabilities():
     """

@@ -14,18 +14,16 @@ class Agent:
         if not self.state:
             return GameAction.Rock
 
-        opponent_usage = self.calculate_opponent_usage()
-        posible_opponent_choice = max(opponent_usage, key=opponent_usage.get)
+        return self.counter_action(self.sum_strategies())
 
-        if posible_opponent_choice == 'PAPER':
-            posible_opponent_choice = GameAction.Paper
-        if posible_opponent_choice == 'ROCK':
-            posible_opponent_choice = GameAction.Rock
-        if posible_opponent_choice == 'SCISSORS':
-            posible_opponent_choice = GameAction.Scissors
 
-        return self.counter_action(posible_opponent_choice)
-
+    def parser_action(self, action):
+        if action == GameAction.Rock:
+            return 'ROCK'
+        if action == GameAction.Paper:
+            return 'PAPER'
+        if action == GameAction.Scissors:
+            return 'SCISSORS'
 
     def load_state_by_csv(self):
         if not os.path.exists(self.DEFAULT_STATE_PATH):
@@ -41,11 +39,24 @@ class Agent:
         self.state = state
         return state
 
-    def save_game_state(self, computer_action, user_action, computer_status):
+    def save_game_state(self, computer_action, user_action):
         if not os.path.exists(self.DEFAULT_STATE_PATH):
             os.makedirs(os.path.dirname(self.DEFAULT_STATE_PATH), exist_ok=True)
 
-        new_game_state = [computer_action, user_action, computer_status]
+        if computer_action == user_action:
+            computer_status = 'DRAW'
+        elif (
+                (computer_action == GameAction.Rock and user_action == GameAction.Scissors) or
+                (computer_action == GameAction.Paper and user_action == GameAction.Rock) or
+                (computer_action == GameAction.Scissors and user_action == GameAction.Paper)
+        ):
+            computer_status = 'WIN'
+        else:
+            computer_status = 'LOSE'
+
+        new_game_state = [self.parser_action(computer_action), self.parser_action(user_action), computer_status]
+        self.state.append(new_game_state)
+
         with open(self.DEFAULT_STATE_PATH, 'a', newline='') as file:
             csv_writer = csv.writer(file)
             csv_writer.writerow(new_game_state)
