@@ -27,7 +27,9 @@ class Agent:
 
     def load_state_by_csv(self):
         if not os.path.exists(self.DEFAULT_STATE_PATH):
-            return None
+            file = open(self.DEFAULT_STATE_PATH, 'x')
+            file.close()
+            return []
 
         state = []
 
@@ -109,6 +111,8 @@ class Agent:
             return GameAction[opponent_last_action.capitalize()]
         else:
             opponent_index = pattern.index(GameAction[opponent_last_action.capitalize()])
+            if opponent_index == 2:
+                opponent_index == -1
             next_action = pattern[(opponent_index + 1) % len(pattern)]
             return next_action
 
