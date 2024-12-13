@@ -36,9 +36,8 @@ def assess_game(user_action, computer_action):
 
 
 def get_computer_action():
-    computer_selection = random.randint(0, len(GameAction) - 1)
-    computer_action = GameAction(computer_selection)
-    print(f"Computer picked {computer_action.name}.")
+    computer_action = agent.play()
+    print(f"Computer picked {computer_action}.")
 
     return computer_action
 
@@ -70,10 +69,13 @@ def main():
 
         computer_action = get_computer_action()
         assess_game(user_action, computer_action)
+        agent.save_game_state(computer_action,user_action)
 
         if not play_another_round():
             break
 
 
 if __name__ == "__main__":
+    from src.modelAgent.Agent import Agent
+    agent = Agent()
     main()
