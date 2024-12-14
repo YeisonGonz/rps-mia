@@ -26,6 +26,9 @@ class Agent:
             return 'SCISSORS'
 
     def load_state_by_csv(self):
+        """
+        Establece el estado segun el csv con las anteriores partidas.
+        """
         if not os.path.exists(self.DEFAULT_STATE_PATH):
             file = open(self.DEFAULT_STATE_PATH, 'x')
             file.close()
@@ -42,6 +45,10 @@ class Agent:
         return state
 
     def save_game_state(self, computer_action, user_action):
+        """
+        Guarda una partida, en el csv
+        """
+
         if not os.path.exists(self.DEFAULT_STATE_PATH):
             os.makedirs(os.path.dirname(self.DEFAULT_STATE_PATH), exist_ok=True)
 
@@ -57,7 +64,7 @@ class Agent:
             computer_status = 'LOSE'
 
         new_game_state = [self.parser_action(computer_action), self.parser_action(user_action), computer_status]
-        self.state.append(new_game_state)
+        self.state.append(new_game_state) # Actualiza el estado interno.
 
         with open(self.DEFAULT_STATE_PATH, 'a', newline='') as file:
             csv_writer = csv.writer(file)
@@ -66,6 +73,9 @@ class Agent:
         return new_game_state
 
     def calculate_opponent_usage(self):
+        """
+        Determina el porcetaje de uso de cada eleccion del oponente.
+        """
         if not self.state:
             return {}
 
@@ -79,6 +89,9 @@ class Agent:
         return percentages
 
     def get_second_most_likely_action(self):
+        """
+        Obtiene la segunda opcion mas elegida del oponente
+        """
         opponent_usage = self.calculate_opponent_usage()
         sorted_usage = sorted(opponent_usage.items(), key=lambda x: x[1], reverse=True)
 
@@ -88,6 +101,9 @@ class Agent:
         return None
 
     def get_most_likely_action(self):
+        """
+        Obtiene la opcion mas elegida del oponente
+        """
         opponent_usage = self.calculate_opponent_usage()
         max_value = max(opponent_usage.values())
 
@@ -98,6 +114,10 @@ class Agent:
         return GameAction[most_likely_action.capitalize()]
 
     def calculate_opponent_action(self):
+        """
+        Determina la posible jugada del oponente basandose en un patron.
+        Este patron es el propio nombre del juego, el cual se recorre en orden de manera circular.
+        """
         pattern = [GameAction.Rock, GameAction.Paper, GameAction.Scissors]
 
         if not self.state:
@@ -117,6 +137,10 @@ class Agent:
             return next_action
 
     def sum_strategies(self):
+        """
+        Determina la acción más probable del oponente combinando diferentes estrategias.
+        Explicacion ampliada en la figura de la documentacion de la 'Estrategia'.
+        """
         opponent_action_1 = self.get_most_likely_action()
         opponent_action_2 = self.calculate_opponent_action()
 
