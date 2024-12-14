@@ -1,5 +1,4 @@
-import random
-from enum import IntEnum
+from enum import IntEnum, Enum
 
 
 class GameAction(IntEnum):
@@ -7,32 +6,37 @@ class GameAction(IntEnum):
     Rock = 0
     Paper = 1
     Scissors = 2
+    Lizard = 3
+    Spock = 4
 
+class GameResult(Enum):
+    Win = 'WIN'
+    Lose = 'LOSE'
+    Draw = 'DRAW'
 
 def assess_game(user_action, computer_action):
     if user_action == computer_action:
         print(f"User and computer picked {user_action.name}. Draw game!")
 
-    # You picked Rock
-    elif user_action == GameAction.Rock:
-        if computer_action == GameAction.Scissors:
-            print("Rock smashes scissors. You won!")
-        else:
-            print("Paper covers rock. You lost!")
+    outcomes = {
+        (GameAction.Rock, GameAction.Scissors): (GameResult.Win, "Rock smashes scissors."),
+        (GameAction.Rock, GameAction.Lizard): (GameResult.Win, "Rock crushes lizard."),
+        (GameAction.Paper, GameAction.Rock): (GameResult.Win, "Paper covers rock."),
+        (GameAction.Paper, GameAction.Spock): (GameResult.Win, "Paper disproves Spock."),
+        (GameAction.Scissors, GameAction.Paper): (GameResult.Win, "Scissors cuts paper."),
+        (GameAction.Scissors, GameAction.Lizard): (GameResult.Win, "Scissors decapitates lizard."),
+        (GameAction.Lizard, GameAction.Spock): (GameResult.Win, "Lizard poisons Spock."),
+        (GameAction.Lizard, GameAction.Paper): (GameResult.Win, "Lizard eats paper."),
+        (GameAction.Spock, GameAction.Scissors): (GameResult.Win, "Spock smashes scissors."),
+        (GameAction.Spock, GameAction.Rock): (GameResult.Win, "Spock vaporizes rock."),
+    }
 
-    # You picked Paper
-    elif user_action == GameAction.Paper:
-        if computer_action == GameAction.Rock:
-            print("Paper covers rock. You won!")
-        else:
-            print("Scissors cuts paper. You lost!")
+    result, description = outcomes.get((user_action, computer_action), (GameResult.Lose, "You lost."))
 
-    # You picked Scissors
-    elif user_action == GameAction.Scissors:
-        if computer_action == GameAction.Rock:
-            print("Rock smashes scissors. You lost!")
-        else:
-            print("Scissors cuts paper. You won!")
+    if result == GameResult.Win:
+       print(f"{description} You won!")
+    else:
+        print(f"{description} You lost!")
 
 
 def get_computer_action():
