@@ -24,15 +24,24 @@ class Agent:
             return 'PAPER'
         if action == GameAction.Scissors:
             return 'SCISSORS'
+        if action == GameAction.Rock:
+            return 'ROCK'
+        if action == GameAction.Lizard:
+            return 'LIZARD'
+        if action == GameAction.Spock:
+            return 'SPOCK'
 
     def load_state_by_csv(self):
         """
         Establece el estado segun el csv con las anteriores partidas.
         """
+        directory = os.path.dirname(self.DEFAULT_STATE_PATH)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
         if not os.path.exists(self.DEFAULT_STATE_PATH):
-            file = open(self.DEFAULT_STATE_PATH, 'x')
-            file.close()
-            return []
+            with open(self.DEFAULT_STATE_PATH, 'w') as file:
+                pass
 
         state = []
 
@@ -52,16 +61,18 @@ class Agent:
         if not os.path.exists(self.DEFAULT_STATE_PATH):
             os.makedirs(os.path.dirname(self.DEFAULT_STATE_PATH), exist_ok=True)
 
+        winning_combinations = {
+            GameAction.Rock: [GameAction.Scissors, GameAction.Lizard],
+            GameAction.Paper: [GameAction.Rock, GameAction.Spock],
+            GameAction.Scissors: [GameAction.Paper, GameAction.Lizard],
+            GameAction.Lizard: [GameAction.Spock, GameAction.Paper],
+            GameAction.Spock: [GameAction.Scissors, GameAction.Rock]
+        }
+
         if computer_action == user_action:
             computer_status = 'DRAW'
-        elif (
-                (computer_action == GameAction.Rock and user_action == GameAction.Scissors) or
-                (computer_action == GameAction.Paper and user_action == GameAction.Rock) or
-                (computer_action == GameAction.Scissors and user_action == GameAction.Paper)
-        ):
-            computer_status = 'WIN'
         else:
-            computer_status = 'LOSE'
+            computer_status = 'WIN' if user_action in winning_combinations[computer_action] else 'LOSE'
 
         new_game_state = [self.parser_action(computer_action), self.parser_action(user_action), computer_status]
         self.state.append(new_game_state) # Actualiza el estado interno.
@@ -118,7 +129,7 @@ class Agent:
         Determina la posible jugada del oponente basandose en un patron.
         Este patron es el propio nombre del juego, el cual se recorre en orden de manera circular.
         """
-        pattern = [GameAction.Rock, GameAction.Paper, GameAction.Scissors]
+        pattern = [GameAction.Rock, GameAction.Paper, GameAction.Scissors,GameAction.Lizard, GameAction.Spock]
 
         if not self.state:
             return None
@@ -158,8 +169,10 @@ class Agent:
 
     def counter_action(self, posible_opponent_choice):
         counters = {
-            GameAction.Rock.value: GameAction.Paper,
-            GameAction.Paper.value: GameAction.Scissors,
-            GameAction.Scissors.value: GameAction.Rock
+            GameAction.Rock: [GameAction.Paper, GameAction.Spock],
+            GameAction.Paper: [GameAction.Scissors, GameAction.Lizard],
+            GameAction.Scissors: [GameAction.Rock, GameAction.Spock],
+            GameAction.Lizard: [GameAction.Rock, GameAction.Scissors],
+            GameAction.Spock: [GameAction.Paper, GameAction.Lizard]
         }
-        return counters.get(posible_opponent_choice)
+        return counters.get(posible_opponent_choice)[0]
