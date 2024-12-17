@@ -117,5 +117,4 @@ class Agent:
             GameAction.Lizard: [GameAction.Rock, GameAction.Scissors],
             GameAction.Spock: [GameAction.Paper, GameAction.Lizard]
         }
-        print(counters.get(posible_opponent_choice))
         return counters.get(posible_opponent_choice)[0]
