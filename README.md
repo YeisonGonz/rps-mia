@@ -77,10 +77,14 @@ en esta figura.
 <img src="./images/image2.png"></img>
 
 
-1. **Como es el mundo ahora**: Esta parte se encarga de crear una representacion del mundo gracias a las **percepciones**,**estado interno** y el **conocimiento de las reglas**.
-2. **Estado**: Esta es la parte crucial del agente, es la encargada en almacenar un historico de todas las partidas o **percepciones** del entorno, es como si fuese la **memoria** del agente, esto es lo que le permitira aprender del mundo ya puede alamacenar partes del mundo que antes no podian ver.
-3. **Como evoluciona el mundo**: Se encarga de describir como cambian las condiciones del entorno con el tiempo, basandose en el **estado**.
-4. **Como afectan mis acciones**: Esto se basa en porder evaluar las consecuencias de las acciones que a hecho, almacenadas en el **estado**, para obtener un grado de un buen o mal desenpeño en el juego.
+1. **Como es el mundo ahora**: Esta parte se encarga de crear una representación del mundo gracias a las **percepciones**,**estado interno** y el **conocimiento de las reglas**.
+2. **Estado**: Esta es la parte crucial del agente, es la encargada en almacenar un histórico de todas las partidas o **percepciones** del entorno, es como si fuese la **memoria** del agente, esto es lo que le permitirá aprender del mundo ya puede almacenar partes del mundo que antes no podían ver. Esta se refleja en una variable ```self.state``` que ofrece la posibilidad de almacenar las percepciones en un **csv** gracias a la función ```load_state_by_csv()```.
+3. **Como evoluciona el mundo**: Se encarga de describir como cambian las condiciones del entorno con el tiempo, basándose en el **estado**. Usando la función ```save_game_state()``` la cual se encarga de guardar la última partida jugada.
+4. **Como afectan mis acciones**: Esto se basa en poder evaluar las consecuencias de las acciones que ha hecho, almacenadas en el **estado**, para obtener un grado de un buen o mal desempeño en el juego. Esto se realiza en el método ```calculate_opponent_usage()``` el cual calcula un porcentaje de uso de las posibles posibilidades para poder responder con una jugada ganadora
+
+5. **¿Que tengo que hacer ahora?**: Esta es la última decisión del agente sobre que acción tiene que realizar. Se aplica en el método ```play()```
+
+6. **Reglas sobre cómo actuar**: Aquí se definen las reglas básicas del juego para contrarrestar la acción del oponente. Están definidas en el método ```counter_action()```
 
 #### Instalación del proyecto
 
