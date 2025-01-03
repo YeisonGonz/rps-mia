@@ -81,3 +81,17 @@ en esta figura.
 2. **Estado**: Esta es la parte crucial del agente, es la encargada en almacenar un historico de todas las partidas o **percepciones** del entorno, es como si fuese la **memoria** del agente, esto es lo que le permitira aprender del mundo ya puede alamacenar partes del mundo que antes no podian ver.
 3. **Como evoluciona el mundo**: Se encarga de describir como cambian las condiciones del entorno con el tiempo, basandose en el **estado**.
 4. **Como afectan mis acciones**: Esto se basa en porder evaluar las consecuencias de las acciones que a hecho, almacenadas en el **estado**, para obtener un grado de un buen o mal desenpeño en el juego.
+
+#### Instalación del proyecto
+
+Para instalar y poder ejecutar el proyecto solo es necesario clonar el repositorio.
+
+1. Clonar el repositorio
+
+```bash
+git clone https://github.com/YeisonGonz/rps-mia.git
+```
+
+Tras clonar el repositorio para poder jugar al RPS + Lizzard Spock solo deberás ejecutar el fichero ```src/base_rps.py```, así podrás jugar siguiendo la estrategia explicada en el apartado [Estrategia](#estrategia).
+
+De forma adicional implemente la posibilidad de poder jugar contra el agente solo usando la estrategia de la probabilidad, para poder jugar de esa manera solo se deberá ejecutar el script ```src/rps_agent_prob.py```
