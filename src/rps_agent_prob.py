@@ -80,6 +80,6 @@ def main():
 
 
 if __name__ == "__main__":
-    from src.probabilityAgent.AgentPr import Agent
+    from probabilityAgent.AgentPr import Agent
     agent = Agent()
     main()

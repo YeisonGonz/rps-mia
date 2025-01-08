@@ -1,6 +1,6 @@
 import csv
 import os
-from src.base_rps import GameAction
+from base_rps import GameAction
 from collections import Counter
 
 class Agent:

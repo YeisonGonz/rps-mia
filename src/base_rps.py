@@ -80,6 +80,6 @@ def main():
 
 
 if __name__ == "__main__":
-    from src.modelAgent.Agent import Agent
+    from modelAgent.Agent import Agent
     agent = Agent()
     main()

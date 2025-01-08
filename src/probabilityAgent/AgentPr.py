@@ -2,7 +2,7 @@ import csv
 import os
 from collections import Counter
 
-from src.base_rps import GameAction
+from base_rps import GameAction
 
 
 class Agent:
